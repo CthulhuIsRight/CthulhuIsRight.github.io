@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Immanuel Anderson | Cybersecurity, maritime OT/ICS</title>
+<meta name="description" content="Former Navy Fire Controlman (FC2) studying cybersecurity, working toward maritime OT/ICS security.">
+<meta property="og:title" content="Immanuel Anderson">
+<meta property="og:description" content="Former Navy Fire Controlman studying cybersecurity, working toward maritime OT/ICS security.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%2314243A' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23A3307E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400&family=B612+Mono&display=swap">
+<style>
+  :root {
+    --paper: #EEF1F0;
+    --ink: #14243A;
+    --haze: #5E6B75;
+    --rule: #C3CCD0;
+    --grid: rgba(20, 36, 58, 0.06);
+    --mark: #A3307E;
+    --sans: "B612", "Segoe UI", system-ui, sans-serif;
+    --mono: "B612 Mono", ui-monospace, "Cascadia Mono", monospace;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0F1C2C;
+      --ink: #E2E7EA;
+      --haze: #9AA7B0;
+      --rule: #2A3A4D;
+      --grid: rgba(226, 231, 234, 0.05);
+      --mark: #E08AC8;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1.0625rem/1.62 var(--sans);
+  }
+  a { color: inherit; text-decoration-color: var(--mark); text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  a:hover { color: var(--mark); }
+  a:focus-visible { outline: 3px solid var(--mark); outline-offset: 3px; border-radius: 2px; }
+
+  .page { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* Hero */
+  .hero { padding: clamp(3rem, 9vw, 6.5rem) 0 2.5rem; }
+  h1 {
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    margin: 0 0 1.25rem;
+  }
+  .lede { max-width: 38rem; font-size: 1.1875rem; margin: 0 0 1.5rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+
+  /* Track chart: plotted fixes, then a projected course */
+  .chart {
+    margin: 1.5rem 0 1rem;
+    padding: 2.25rem 1.5rem 1.75rem;
+    border: 1px solid var(--rule);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+  }
+  .track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .track li { position: relative; padding: 2.1rem 1rem 0 0; }
+  .track li::before {
+    content: ""; position: absolute; left: 0.6rem; right: -0.6rem; top: 0.6rem;
+    border-top: 2px solid var(--ink); transform: translateY(-1px);
+  }
+  .track li:nth-last-child(2)::before { border-top: 2px dashed var(--mark); }
+  .track li:last-child::before { display: none; }
+  .track li::after {
+    content: ""; position: absolute; left: 0; top: 0;
+    width: 1.2rem; height: 1.2rem; border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: radial-gradient(circle, var(--ink) 0 22%, var(--paper) 26%);
+  }
+  .track li.projected::after { border: 2px dashed var(--mark); background: var(--paper); }
+  .track .where { display: block; font-size: 0.8125rem; color: var(--haze); line-height: 1.35; margin-bottom: 0.2rem; }
+  .track .what { display: block; font-weight: 700; line-height: 1.3; }
+  .track li.projected .what { color: var(--mark); }
+  .legend { display: flex; gap: 1.5rem; margin: 1.5rem 0 0; font-size: 0.8125rem; color: var(--haze); }
+  .legend span::before {
+    content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%;
+    margin-right: 0.45rem; vertical-align: -0.05rem; border: 2px solid var(--ink);
+    background: radial-gradient(circle, var(--ink) 0 22%, transparent 26%);
+  }
+  .legend span.dr::before { border: 2px dashed var(--mark); background: none; }
+
+  /* Sections: heading in the margin column, content to the right */
+  section.block {
+    display: grid; grid-template-columns: 11rem 1fr; gap: 0 2rem;
+    padding: 2.75rem 0; border-top: 1px solid var(--rule);
+  }
+  section.block > h2 { font-size: 1.125rem; font-weight: 700; margin: 0.15rem 0 1rem; }
+  .body { max-width: 42rem; }
+  .body > p { margin: 0 0 1rem; }
+
+  .item { margin: 0 0 1.75rem; }
+  .item:last-child { margin-bottom: 0; }
+  .item h3 { font-size: 1.125rem; font-weight: 700; margin: 0 0 0.3rem; }
+  .item h3 .status { font-weight: 400; font-size: 0.9375rem; color: var(--haze); }
+  .item p { margin: 0 0 0.4rem; }
+  .item .stack { font-family: var(--mono); font-size: 0.875rem; color: var(--haze); }
+  .item .item-links { display: flex; gap: 1.25rem; font-size: 0.9375rem; }
+
+  .points { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  .points li { margin: 0 0 0.4rem; padding-left: 0.2rem; }
+  .points li::marker { color: var(--haze); }
+  .facts { list-style: none; margin: 0; padding: 0; }
+  .facts li { padding: 0.65rem 0; border-bottom: 1px solid var(--rule); }
+  .facts li:first-child { padding-top: 0; }
+  .facts li:last-child { border-bottom: 0; }
+  .facts .note { color: var(--haze); }
+
+  .facts .verify { margin-left: 0.5rem; font-size: 0.875rem; }
+  h3.sub { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+  .contact-btn {
+    display: inline-block; margin-top: 0.25rem; padding: 0.7rem 1.2rem;
+    border: 2px solid var(--ink); font-weight: 700; text-decoration: none;
+  }
+  .contact-btn:hover { border-color: var(--mark); background: var(--mark); color: var(--paper); }
+
+  footer { padding: 2rem 0 3rem; border-top: 1px solid var(--rule); font-size: 0.875rem; color: var(--haze); }
+  footer p { margin: 0; }
+  footer .elsewhere { margin-bottom: 0.75rem; }
+  footer .elsewhere a { margin-left: 0.75rem; }
+
+  @media (max-width: 880px) {
+    .track { grid-template-columns: 1fr; }
+    .track li { padding: 0 0 1.4rem 2.1rem; }
+    .track li:last-child { padding-bottom: 0; }
+    .track li::before {
+      left: 0.6rem; right: auto; top: 0.6rem; bottom: -0.6rem;
+      border-top: 0; border-left: 2px solid var(--ink); transform: translateX(-1px);
+    }
+    .track li:nth-last-child(2)::before { border-top: 0; border-left: 2px dashed var(--mark); }
+    section.block { grid-template-columns: 1fr; }
+    .chart { padding: 1.75rem 1.25rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <h1>Immanuel Anderson</h1>
+    <p class="lede">Former Navy Fire Controlman. I spent six years in the Navy, most of them operating and maintaining shipboard weapon and sensor systems. Now I'm studying cybersecurity to defend the control systems that ships, ports, and shore facilities run on.</p>
+    <ul class="links">
+      <li><a href="https://www.linkedin.com/in/immanuel-anderson-306771314/">LinkedIn</a></li>
+      <li><a href="https://github.com/CthulhuIsRight">GitHub</a></li>
+    </ul>
+
+    <div class="chart">
+      <ol class="track" aria-label="Career track">
+        <li><span class="where">Navy schools, 2017 to 2019</span><span class="what">Fire Controlman training</span></li>
+        <li><span class="where">USS Nimitz, 2019 to 2023</span><span class="what">FC2, Phalanx CIWS</span></li>
+        <li><span class="where">Kitsap-Bremerton, 2023 to 2024</span><span class="what">Counter-UAS operator, CORIAN</span></li>
+        <li><span class="where">Now</span><span class="what">BAS, Cybersecurity</span></li>
+        <li class="projected"><span class="where">Heading</span><span class="what">Maritime OT/ICS security</span></li>
+      </ol>
+      <p class="legend" aria-hidden="true"><span>Fix</span><span class="dr">Projected course</span></p>
+    </div>
+  </header>
+
+  <main>
+    <section class="block" id="service">
+      <h2>Navy service</h2>
+      <div class="body">
+        <article class="item">
+          <h3>Training, Great Lakes and Dam Neck <span class="status">(Nov 2017 to Aug 2019)</span></h3>
+          <p>Basic training, then Fire Controlman &ldquo;A&rdquo; school, the Phalanx CIWS technical course, and the MK 15 Block 1B Baseline 2 differential course. Hands-on work with oscilloscopes, multimeters, circuit diagrams, and electrical troubleshooting.</p>
+        </article>
+        <article class="item">
+          <h3>Fire Controlman Second Class, USS Nimitz <span class="status">(2019 to Mar 2023)</span></h3>
+          <p>Operated and maintained the Phalanx close-in weapon system (CIWS). Qualified Enlisted Surface Warfare Specialist (ESWS) in 2021.</p>
+          <ul class="points">
+            <li>Diagnosed and corrected seven CIWS casualties (system failures), across 432 hours of preventive and corrective maintenance.</li>
+            <li>Stood 729 hours of watch in the Combat Systems Maintenance Center, running the CIWS Local Control System console on six to eight hour watches.</li>
+            <li>Took part in 15 live-fire pre-action calibrations.</li>
+            <li>Helped maintain continuous 360 degree anti-air warfare coverage; the ship scored 100% on its Combat Systems Readiness Assessment.</li>
+          </ul>
+        </article>
+        <article class="item">
+          <h3>Counter-UAS operator, Naval Base Kitsap-Bremerton <span class="status">(May 2023 to Apr 2024)</span></h3>
+          <p>Ran the CORIAN counter-drone system defending restricted airspace over the base.</p>
+          <ul class="points">
+            <li>Installed, operated, and maintained the system and its servers.</li>
+            <li>Applied rules of engagement to decide when electronic attack against a drone threat was warranted, and carried out four successful drone exercises.</li>
+            <li>Reported to the watch commander, the base anti-terrorism force, and the Federal Communications Commission.</li>
+          </ul>
+        </article>
+        <p>Weapon and sensor systems have to behave predictably, fail safely, and leave a record of what they did. Industrial control systems carry the same requirements, and that's the work I'm aiming at.</p>
+      </div>
+    </section>
+
+    <section class="block" id="projects">
+      <h2>Projects</h2>
+      <div class="body">
+        <article class="item">
+          <h3>Learning Log</h3>
+          <p>A multi-user journal web app with account authentication and full create, read, update, and delete for topics and entries. Deployed with Docker Compose against Postgres instead of a hosted platform, so it runs the same anywhere.</p>
+          <p class="stack">Python, Django, Docker, PostgreSQL</p>
+          <p class="item-links"><a href="https://github.com/CthulhuIsRight/django-learning-log">Source</a></p>
+        </article>
+        <article class="item">
+          <h3>3D terrain modeling guide</h3>
+          <p>A step-by-step guide written for community college geology courses: take real elevation data, generate a model, slice it, and print it at the campus makerspace. Mount Rainier is the worked example.</p>
+          <p class="stack">Terrain2STL, PrusaSlicer, HTML, CSS</p>
+          <p class="item-links"><a href="https://cthulhuisright.github.io/makerspace-3d-terrain/">Guide</a><a href="https://github.com/CthulhuIsRight/makerspace-3d-terrain">Source</a></p>
+        </article>
+        <article class="item">
+          <h3>TechFromScratch <span class="status">(in progress)</span></h3>
+          <p>A reference site on how basic electronic components such as resistors, capacitors, and batteries are made from raw materials, navigated through a node map.</p>
+          <p class="stack">HTML, CSS, JavaScript</p>
+          <p class="item-links"><a href="https://cthulhuisright.github.io/TechFromScratch/">Site</a><a href="https://github.com/CthulhuIsRight/TechFromScratch">Source</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="languages">
+      <h2>Languages and tools</h2>
+      <div class="body">
+        <ul class="facts">
+          <li>Python <span class="note">primary; Django web apps, simulation libraries, local LLM tooling</span></li>
+          <li>HTML, CSS, JavaScript <span class="note">the sites linked above, including this one</span></li>
+          <li>Java <span class="note">coursework</span></li>
+          <li>Rust <span class="note">beginner</span></li>
+          <li>SQL <span class="note">learning with SQLite, PostgreSQL next</span></li>
+          <li>Git, Docker, Linux, Wireshark, Cisco Packet Tracer</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" id="education">
+      <h2>Education</h2>
+      <div class="body">
+        <ul class="facts">
+          <li>BAS in Cybersecurity <span class="note">in progress</span></li>
+          <li>Associate of Science <span class="note">in progress</span></li>
+          <li>High school diploma, Curtis Senior High School <span class="note">2017</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" id="certifications">
+      <h2>Certifications</h2>
+      <div class="body">
+        <ul class="facts">
+          <li>CompTIA A+ ce <span class="note">earned Sep 2024, valid through Sep 2027</span> <a class="verify" href="https://www.credly.com/badges/8ab722c2-60b4-4fb1-add4-03896e212479/public_url">Verify</a></li>
+          <li>Computer Operator apprenticeship, USMAPS <span class="note">2,000 hours, 2021</span></li>
+          <li>Secret clearance <span class="note">inactive</span></li>
+          <li>PADI Open Water Diver <span class="note">2026</span> <a class="verify" href="https://www.credly.com/badges/378efa45-d1fe-4a9a-9b8a-ff3e8d4c1b25/public_url">Verify</a></li>
+          <li>Next: CompTIA Security+, then the ISA/IEC 62443 certificate series</li>
+        </ul>
+        <h3 class="sub">Courses</h3>
+        <ul class="facts">
+          <li>CCNA: Introduction to Networks, Cisco Networking Academy <span class="note">2026</span> <a class="verify" href="https://www.credly.com/badges/d2a4c401-def2-45d7-8ace-567aaa4a4215/public_url">Verify</a></li>
+          <li>Complete Ethical Hacking Bootcamp, Zero To Mastery <span class="note">2024</span> <a class="verify" href="https://www.udemy.com/certificate/UC-0384521d-baaa-4e8c-9648-ffe05ee803d1/">Certificate</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" id="contact">
+      <h2>Contact</h2>
+      <div class="body">
+        <p>LinkedIn is the best way to reach me.</p>
+        <a class="contact-btn" href="https://www.linkedin.com/in/immanuel-anderson-306771314/">Message me on LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="elsewhere">Elsewhere: <a href="https://monkeytype.com/profile/CthulhuIsRight">Monkeytype</a> <a href="https://www.deviantart.com/cthulhuisright">DeviantArt</a></p>
+    <p>© 2026 Immanuel Anderson. Designed and coded with Claude, an AI assistant from Anthropic. The content comes from my own master record, and I've verified every fact.</p>
+  </footer>
+
+</div>
+</body>
+</html>
